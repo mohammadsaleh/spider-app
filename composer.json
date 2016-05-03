@@ -3,7 +3,6 @@
     "description": "Spider skeleton app",
     "homepage": "http://github.com/mohammadsaleh/spider-app",
     "license": "MIT",
-    "type": "project",
     "authors" : [
         {
             "name": "Mohammad Saleh Sayari",
