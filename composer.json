@@ -3,10 +3,7 @@
     "description": "Spider skeleton app",
     "homepage": "http://github.com/mohammadsaleh/spider-app",
     "license": "MIT",
-    "repository": {
-        "type": "git",
-        "url": "git://github.com/mohammadsaleh/spider-app.git"
-    },
+    "type": "project",
     "authors" : [
         {
             "name": "Mohammad Saleh Sayari",
@@ -15,7 +12,6 @@
     ],
     "require": {
         "php": ">=5.5.9",
-        "mohammadsaleh/spider": "dev-master",
         "cakephp/cakephp": "~3.2",
         "mobiledetect/mobiledetectlib": "2.*",
         "cakephp/migrations": "~1.0",
