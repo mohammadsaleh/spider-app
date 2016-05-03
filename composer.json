@@ -12,13 +12,13 @@
     ],
     "require": {
         "php": ">=5.5.9",
-        "mohammadsaleh/spider": "~1.0",
         "cakephp/cakephp": "~3.2",
         "mobiledetect/mobiledetectlib": "2.*",
         "cakephp/migrations": "~1.0",
         "cakephp/plugin-installer": "*"
     },
     "require-dev": {
+        "mohammadsaleh/spider": "dev-master",
         "psy/psysh": "@stable",
         "cakephp/debug_kit": "~3.2",
         "cakephp/bake": "~1.1"
@@ -42,5 +42,7 @@
         "post-install-cmd": "App\\Console\\Installer::postInstall",
         "post-create-project-cmd": "App\\Console\\Installer::postInstall",
         "post-autoload-dump": "Cake\\Composer\\Installer\\PluginInstaller::postAutoloadDump"
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
