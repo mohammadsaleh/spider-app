@@ -2,138 +2,75 @@
 Navicat MySQL Data Transfer
 
 Source Server         : Localhost
-Source Server Version : 100113
+Source Server Version : 50624
 Source Host           : localhost:3306
 Source Database       : spider
 
 Target Server Type    : MYSQL
-Target Server Version : 100113
+Target Server Version : 50624
 File Encoding         : 65001
 
-Date: 2016-05-07 20:55:14
+Date: 2016-05-11 19:26:22
 */
 
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for acl_phinxlog
+-- Table structure for aclmanager_acos
 -- ----------------------------
-DROP TABLE IF EXISTS `acl_phinxlog`;
-CREATE TABLE `acl_phinxlog` (
-  `version` bigint(20) NOT NULL,
-  `start_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `end_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`version`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of acl_phinxlog
--- ----------------------------
-INSERT INTO `acl_phinxlog` VALUES ('20141229162641', '2015-11-15 07:23:12', '2015-11-15 07:23:14');
-
--- ----------------------------
--- Table structure for acos
--- ----------------------------
-DROP TABLE IF EXISTS `acos`;
-CREATE TABLE `acos` (
+DROP TABLE IF EXISTS `aclmanager_acos`;
+CREATE TABLE `aclmanager_acos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `parent_id` int(11) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `description` text,
   `model` varchar(255) DEFAULT NULL,
   `foreign_key` int(11) DEFAULT NULL,
-  `alias` varchar(255) DEFAULT NULL,
-  `lft` int(11) DEFAULT NULL,
-  `rght` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `lft` (`lft`,`rght`),
-  KEY `alias` (`alias`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of acos
+-- Records of aclmanager_acos
 -- ----------------------------
-INSERT INTO `acos` VALUES ('1', null, null, null, 'controllers', '1', '6');
-INSERT INTO `acos` VALUES ('26', '1', null, null, 'AclManager', '2', '5');
-INSERT INTO `acos` VALUES ('27', '26', null, null, 'social', '3', '4');
+INSERT INTO `aclmanager_acos` VALUES ('28', 'plugin', 'پلاگین', null, null, null);
+INSERT INTO `aclmanager_acos` VALUES ('29', 'plugin/b2b', 'پلاگین b2b', null, null, null);
+INSERT INTO `aclmanager_acos` VALUES ('30', 'plugin/b2b/controller', null, null, null, null);
+INSERT INTO `aclmanager_acos` VALUES ('31', 'plugin/b2b/controler/tour', null, null, null, null);
+INSERT INTO `aclmanager_acos` VALUES ('32', 'plugin/b2b/controller/tour/action', null, null, null, null);
+INSERT INTO `aclmanager_acos` VALUES ('33', 'plugin/b2b/controler/tour/action/edit', 'ویرایش تور', null, null, null);
+INSERT INTO `aclmanager_acos` VALUES ('34', 'plugin/b2b/controller/tour/action/view', 'مشاهده تور', null, null, null);
 
 -- ----------------------------
--- Table structure for activation_keys
+-- Table structure for aclmanager_aros
 -- ----------------------------
-DROP TABLE IF EXISTS `activation_keys`;
-CREATE TABLE `activation_keys` (
+DROP TABLE IF EXISTS `aclmanager_aros`;
+CREATE TABLE `aclmanager_aros` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) DEFAULT NULL,
-  `activation_key` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `created` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  KEY `user_id` (`user_id`),
-  CONSTRAINT `activation_keys_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- ----------------------------
--- Records of activation_keys
--- ----------------------------
-
--- ----------------------------
--- Table structure for aros
--- ----------------------------
-DROP TABLE IF EXISTS `aros`;
-CREATE TABLE `aros` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `parent_id` int(11) DEFAULT NULL,
   `model` varchar(255) DEFAULT NULL,
   `foreign_key` int(11) DEFAULT NULL,
-  `alias` varchar(255) DEFAULT NULL,
-  `lft` int(11) DEFAULT NULL,
-  `rght` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `lft` (`lft`,`rght`),
-  KEY `alias` (`alias`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of aros
+-- Records of aclmanager_aros
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for aros_acos
+-- Table structure for aclmanager_aros_acos
 -- ----------------------------
-DROP TABLE IF EXISTS `aros_acos`;
-CREATE TABLE `aros_acos` (
+DROP TABLE IF EXISTS `aclmanager_aros_acos`;
+CREATE TABLE `aclmanager_aros_acos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `aro_id` int(11) NOT NULL,
   `aco_id` int(11) NOT NULL,
-  `_create` varchar(2) NOT NULL DEFAULT '0',
-  `_read` varchar(2) NOT NULL DEFAULT '0',
-  `_update` varchar(2) NOT NULL DEFAULT '0',
-  `_delete` varchar(2) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `aro_id` (`aro_id`,`aco_id`),
   KEY `aco_id` (`aco_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of aros_acos
+-- Records of aclmanager_aros_acos
 -- ----------------------------
-
--- ----------------------------
--- Table structure for capabilities
--- ----------------------------
-DROP TABLE IF EXISTS `capabilities`;
-CREATE TABLE `capabilities` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `description` text COLLATE utf8_unicode_ci,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- ----------------------------
--- Records of capabilities
--- ----------------------------
-INSERT INTO `capabilities` VALUES ('1', 'single_match', 'شرکت در مسابقات تک پیشبینی و میکس ');
-INSERT INTO `capabilities` VALUES ('2', 'write', 'نوشتن');
-INSERT INTO `capabilities` VALUES ('3', 'read', 'خواندن');
-INSERT INTO `capabilities` VALUES ('4', 'buy', 'خرید کردن');
-INSERT INTO `capabilities` VALUES ('5', 'see', 'دیدن');
 
 -- ----------------------------
 -- Table structure for cities
@@ -777,8 +714,8 @@ CREATE TABLE `messages` (
   KEY `from_user_id` (`from_user_id`),
   KEY `to_user_id` (`to_user_id`),
   KEY `parent_id` (`parent_id`),
-  CONSTRAINT `messages_ibfk_1` FOREIGN KEY (`from_user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `messages_ibfk_2` FOREIGN KEY (`to_user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `messages_ibfk_1` FOREIGN KEY (`from_user_id`) REFERENCES `users_users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `messages_ibfk_2` FOREIGN KEY (`to_user_id`) REFERENCES `users_users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `messages_ibfk_3` FOREIGN KEY (`parent_id`) REFERENCES `messages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -826,57 +763,7 @@ CREATE TABLE `plugins` (
 -- ----------------------------
 -- Records of plugins
 -- ----------------------------
-INSERT INTO `plugins` VALUES ('1', 'Settings', null, '1.0', '1.2', '1', '1', '0');
-INSERT INTO `plugins` VALUES ('3', 'Metronic', 'admin', null, null, '2', '1', '1');
-INSERT INTO `plugins` VALUES ('6', 'Messages', null, null, null, '3', '1', '0');
-INSERT INTO `plugins` VALUES ('9', 'Notifications', null, '1.0', null, '4', '1', '0');
-
--- ----------------------------
--- Table structure for roles
--- ----------------------------
-DROP TABLE IF EXISTS `roles`;
-CREATE TABLE `roles` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `parent_id` int(11) DEFAULT NULL,
-  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `description` text COLLATE utf8_unicode_ci,
-  `lft` int(11) DEFAULT NULL,
-  `rght` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `parent_id` (`parent_id`),
-  CONSTRAINT `roles_ibfk_1` FOREIGN KEY (`parent_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- ----------------------------
--- Records of roles
--- ----------------------------
-INSERT INTO `roles` VALUES ('1', '2', 'superadmin', 'مدیریت کل', 'توضیحات', '5', '6');
-INSERT INTO `roles` VALUES ('2', '3', 'registered', 'کاربران ثبت نام شده', 'کاربران ثبت نام شده', '2', '7');
-INSERT INTO `roles` VALUES ('3', null, 'public', 'کاربران عمومی', '', '1', '8');
-INSERT INTO `roles` VALUES ('4', '2', 'admin', 'مدیر', '', '3', '4');
-
--- ----------------------------
--- Table structure for roles_capabilities
--- ----------------------------
-DROP TABLE IF EXISTS `roles_capabilities`;
-CREATE TABLE `roles_capabilities` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `role_id` int(11) DEFAULT NULL,
-  `capability_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `role_id` (`role_id`),
-  KEY `capability_id` (`capability_id`),
-  CONSTRAINT `roles_capabilities_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `roles_capabilities_ibfk_2` FOREIGN KEY (`capability_id`) REFERENCES `capabilities` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- ----------------------------
--- Records of roles_capabilities
--- ----------------------------
-INSERT INTO `roles_capabilities` VALUES ('11', '3', '5');
-INSERT INTO `roles_capabilities` VALUES ('14', '1', '2');
-INSERT INTO `roles_capabilities` VALUES ('15', '2', '3');
+INSERT INTO `plugins` VALUES ('3', 'Briowebapp', 'admin', null, null, '2', '1', '1');
 
 -- ----------------------------
 -- Table structure for settings
@@ -905,67 +792,83 @@ INSERT INTO `settings` VALUES ('1', 'site.title', 'bazibartar', null, null, null
 INSERT INTO `settings` VALUES ('2', 'plugins', 'BootstrapUI,Metronic,Search,Users,Messages,Bazibartar', null, null, null, null, null, null, null, '2015-09-03 21:16:28', '2015-09-03 21:16:28');
 
 -- ----------------------------
--- Table structure for user_logins
+-- Table structure for users_activation_keys
 -- ----------------------------
-DROP TABLE IF EXISTS `user_logins`;
-CREATE TABLE `user_logins` (
+DROP TABLE IF EXISTS `users_activation_keys`;
+CREATE TABLE `users_activation_keys` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
-  `login_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `logout_date` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `activation_key` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  KEY `user_logins_ibfk_1` (`user_id`),
-  CONSTRAINT `user_logins_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `users_activation_keys_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users_users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
--- Records of user_logins
+-- Records of users_activation_keys
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for users
+-- Table structure for users_roles
 -- ----------------------------
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE `users` (
+DROP TABLE IF EXISTS `users_roles`;
+CREATE TABLE `users_roles` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `parent_id` int(11) DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8_unicode_ci,
+  `lft` int(11) DEFAULT NULL,
+  `rght` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `parent_id` (`parent_id`),
+  CONSTRAINT `users_roles_ibfk_1` FOREIGN KEY (`parent_id`) REFERENCES `users_roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- ----------------------------
+-- Records of users_roles
+-- ----------------------------
+INSERT INTO `users_roles` VALUES ('1', '2', 'superadmin', 'مدیریت کل', 'توضیحات', '5', '6');
+INSERT INTO `users_roles` VALUES ('2', '3', 'registered', 'کاربران ثبت نام شده', 'کاربران ثبت نام شده', '2', '7');
+INSERT INTO `users_roles` VALUES ('3', null, 'public', 'کاربران عمومی', '', '1', '8');
+INSERT INTO `users_roles` VALUES ('4', '2', 'admin', 'مدیر', '', '3', '4');
+
+-- ----------------------------
+-- Table structure for users_users
+-- ----------------------------
+DROP TABLE IF EXISTS `users_users`;
+CREATE TABLE `users_users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'ایمیل کاربر بعنوان نام کاربری',
   `password` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `auth_key` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `firstname` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `lastname` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `alias` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `mobile` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `birthday` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `avatar` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `presenter_id` int(11) DEFAULT NULL COMMENT 'معرف',
-  `city_id` int(11) DEFAULT NULL,
-  `role_id` int(11) DEFAULT NULL,
-  `status` tinyint(4) DEFAULT '0' COMMENT '-1=حذف شده\r\n0=غیرفعال\r\n1=فعال ثبت نام شده\r\n2=فعال گروهی ، با تکمیل شدن اطلاعات پروفایل\r\n3=فعال تکی ، با اولین افزایش اعتبار',
+  `status` tinyint(4) DEFAULT '0' COMMENT '-1=حذف شده\r\n0=غیرفعال\r\n1=فعال ثبت نام شده',
   `created` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
--- Records of users
+-- Records of users_users
 -- ----------------------------
-INSERT INTO `users` VALUES ('1', 'admin', '$2y$10$QTZ43cY04mY9YTxEl23QFOkRt9FLFgHO6fCS5FjlLeHv.t/Jt1BgW', null, 'محمدصالح', 'سیاری', 'ms', '09152225154', '1366/11/16', '/img/avatars/1/0035211c5f5806b7c65234edeacdfc49.jpg', null, null, '1', '2', '2016-01-14 11:17:06');
+INSERT INTO `users_users` VALUES ('1', 'admin', '$2y$10$QTZ43cY04mY9YTxEl23QFOkRt9FLFgHO6fCS5FjlLeHv.t/Jt1BgW', 'محمدصالح', 'سیاری', 'ms', '09152225154', '1366/11/16', '/img/avatars/1/0035211c5f5806b7c65234edeacdfc49.jpg', '2', '2016-01-14 11:17:06');
 
 -- ----------------------------
--- Table structure for users_capabilities
+-- Table structure for users_users_roles
 -- ----------------------------
-DROP TABLE IF EXISTS `users_capabilities`;
-CREATE TABLE `users_capabilities` (
+DROP TABLE IF EXISTS `users_users_roles`;
+CREATE TABLE `users_users_roles` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
-  `capability_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `user_id` (`user_id`),
-  KEY `capability_id` (`capability_id`),
-  CONSTRAINT `users_capabilities_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `users_capabilities_ibfk_2` FOREIGN KEY (`capability_id`) REFERENCES `capabilities` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `role_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- ----------------------------
--- Records of users_capabilities
+-- Records of users_users_roles
 -- ----------------------------
-INSERT INTO `users_capabilities` VALUES ('1', '1', '2');
