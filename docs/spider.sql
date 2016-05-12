@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50624
 File Encoding         : 65001
 
-Date: 2016-05-11 19:26:22
+Date: 2016-05-12 17:35:40
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -27,18 +27,19 @@ CREATE TABLE `aclmanager_acos` (
   `model` varchar(255) DEFAULT NULL,
   `foreign_key` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of aclmanager_acos
 -- ----------------------------
 INSERT INTO `aclmanager_acos` VALUES ('28', 'plugin', 'پلاگین', null, null, null);
 INSERT INTO `aclmanager_acos` VALUES ('29', 'plugin/b2b', 'پلاگین b2b', null, null, null);
-INSERT INTO `aclmanager_acos` VALUES ('30', 'plugin/b2b/controller', null, null, null, null);
-INSERT INTO `aclmanager_acos` VALUES ('31', 'plugin/b2b/controler/tour', null, null, null, null);
-INSERT INTO `aclmanager_acos` VALUES ('32', 'plugin/b2b/controller/tour/action', null, null, null, null);
-INSERT INTO `aclmanager_acos` VALUES ('33', 'plugin/b2b/controler/tour/action/edit', 'ویرایش تور', null, null, null);
-INSERT INTO `aclmanager_acos` VALUES ('34', 'plugin/b2b/controller/tour/action/view', 'مشاهده تور', null, null, null);
+INSERT INTO `aclmanager_acos` VALUES ('31', 'plugin/b2b/tours', null, null, null, null);
+INSERT INTO `aclmanager_acos` VALUES ('33', 'plugin/b2b/tours/edit', 'ویرایش تور', null, null, null);
+INSERT INTO `aclmanager_acos` VALUES ('34', 'plugin/b2b/tours/view', 'مشاهده تور', null, null, null);
+INSERT INTO `aclmanager_acos` VALUES ('36', 'plugin/users', null, null, null, null);
+INSERT INTO `aclmanager_acos` VALUES ('38', 'plugin/users/users', null, null, null, null);
+INSERT INTO `aclmanager_acos` VALUES ('40', 'plugin/users/users/login', 'ورود به سیستم', null, null, null);
 
 -- ----------------------------
 -- Table structure for aclmanager_aros
@@ -49,11 +50,14 @@ CREATE TABLE `aclmanager_aros` (
   `model` varchar(255) DEFAULT NULL,
   `foreign_key` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of aclmanager_aros
 -- ----------------------------
+INSERT INTO `aclmanager_aros` VALUES ('8', 'roles', '2');
+INSERT INTO `aclmanager_aros` VALUES ('9', 'roles', '1');
+INSERT INTO `aclmanager_aros` VALUES ('10', 'roles', '3');
 
 -- ----------------------------
 -- Table structure for aclmanager_aros_acos
@@ -66,11 +70,14 @@ CREATE TABLE `aclmanager_aros_acos` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `aro_id` (`aro_id`,`aco_id`),
   KEY `aco_id` (`aco_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of aclmanager_aros_acos
 -- ----------------------------
+INSERT INTO `aclmanager_aros_acos` VALUES ('12', '9', '33');
+INSERT INTO `aclmanager_aros_acos` VALUES ('9', '9', '34');
+INSERT INTO `aclmanager_aros_acos` VALUES ('10', '10', '40');
 
 -- ----------------------------
 -- Table structure for cities
