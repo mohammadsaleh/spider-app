@@ -344,6 +344,7 @@ CREATE TABLE `spider_users_users` (
   `lastname` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `alias` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `mobile` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `birthday` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `avatar` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `status` tinyint(4) DEFAULT '0' COMMENT '-1=حذف شده\r\n0=غیرفعال\r\n1=فعال',
@@ -354,4 +355,4 @@ CREATE TABLE `spider_users_users` (
 -- ----------------------------
 -- Records of spider_users_users
 -- ----------------------------
-INSERT INTO `spider_users_users` VALUES ('1', 'admin', '$2y$10$QTZ43cY04mY9YTxEl23QFOkRt9FLFgHO6fCS5FjlLeHv.t/Jt1BgW', 'mohammadsaleh', 'sayari', 'Spider admin', '09151206735', '1366/11/16', '/img/avatars/1/0035211c5f5806b7c65234edeacdfc49.jpg', '1', '2016-06-04 11:33:45');
+INSERT INTO `spider_users_users` VALUES ('1', 'admin', '$2y$10$QTZ43cY04mY9YTxEl23QFOkRt9FLFgHO6fCS5FjlLeHv.t/Jt1BgW', 'mohammadsaleh', 'sayari', 'Spider admin', '09151206735', 'mohammad.0711@gmail.com', '1366/11/16', '/img/avatars/1/0035211c5f5806b7c65234edeacdfc49.jpg', '1', '2016-06-04 11:33:45');
