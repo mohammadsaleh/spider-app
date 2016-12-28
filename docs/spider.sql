@@ -121,9 +121,10 @@ DROP TABLE IF EXISTS `spider_settings_settings`;
 CREATE TABLE `spider_settings_settings` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `value` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `value` text COLLATE utf8_unicode_ci,
   `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `description` text COLLATE utf8_unicode_ci,
+  `type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `params` text COLLATE utf8_unicode_ci,
   `weight` int(11) DEFAULT NULL,
   `editable` tinyint(2) DEFAULT NULL,
@@ -132,13 +133,14 @@ CREATE TABLE `spider_settings_settings` (
   `created` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of spider_settings_settings
 -- ----------------------------
-INSERT INTO `spider_settings_settings` VALUES ('1', 'site.title', 'bazibartar', null, null, null, '1', '1', null, null, '2015-09-04 02:22:02', '2015');
-INSERT INTO `spider_settings_settings` VALUES ('32', 'site.privacy', null, 'Privacy Policy', '<p>adfsafsaf</p>\r\n', null, null, null, '1', null, '2016-12-27 13:44:40', '0');
+INSERT INTO `spider_settings_settings` VALUES ('1', 'site.title', 'bikooch', 'Site Title', 'the title of site', 'text', null, '2', '1', '1', null, '2016-12-28 14:14:45', '2015');
+INSERT INTO `spider_settings_settings` VALUES ('32', 'site.privacy', '<p>this the privacy policy text</p>\r\n', 'Privacy Policy', null, 'textarea', '{\"ckeditor\":true}', '1', '1', '1', null, '2016-12-28 14:14:43', '0');
+INSERT INTO `spider_settings_settings` VALUES ('36', 'site.status', 'offline', 'Site Status', null, 'radio', '{\"options\":[{\"text\":\"Offline\",\"value\":\"offline\",\"class\":\"control-warning\"},{\"text\":\"Online\",\"value\":\"online\",\"class\":\"control-info\"}],\"label\":false,\"div\":false}', '3', '1', '1', null, '2016-12-28 14:14:57', '0');
 
 -- ----------------------------
 -- Table structure for spider_users_activation_keys
