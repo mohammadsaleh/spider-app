@@ -1,0 +1,64 @@
+::-moz-selection {color: #fff;background: #3D5AFE;}
+::selection {color: #fff; background: #3D5AFE;}
+a{color: #3D5AFE;}
+a:focus, a:hover {color: #3D5AFE;}
+a.sidebar-control:hover i{color:#3D5AFE;}
+.notifications .media-list .media-heading{color: #3D5AFE;}
+.notifications .media-list a.media-heading .media-annotation{color:#3D5AFE;}
+.sidebar a i,.navbar a i{color:#3D5AFE;}
+.navigation>li.active>a,.navigation>li.active>a:focus,.navigation>li.active>a:hover{background-color:#3D5AFE;}
+.sidebar-xs .sidebar-main .navigation>li>a>span{background-color:#3D5AFE;border:1px solid #3D5AFE;}
+.breadcrumb>li+li:before {color: #3D5AFE;}
+.nav-tabs.nav-tabs-top>li.active>a,.nav-tabs.nav-tabs-top>li.active>a:focus,.nav-tabs.nav-tabs-top>li.active>a:hover{border-top-color:#3D5AFE;}
+code, .text-highlight {color: #fff;background-color: #3D5AFE;}
+.breadcrumb a {background: #3D5AFE;color: #fff;}
+.tooltip-inner{background-color:#3D5AFE;}
+.tooltip.left .tooltip-arrow{border-left-color:#3D5AFE;}
+.tooltip.right .tooltip-arrow{border-right-color:#3D5AFE;}
+.tooltip.top .tooltip-arrow{border-top-color:#3D5AFE;}
+.tooltip.bottom .tooltip-arrow{border-bottom-color:#3D5AFE;}
+.popover{border:1px solid #3D5AFE}
+.popover-title{background:#3D5AFE;color: #fff;}
+.popover.left>.arrow{border-left-color:#3D5AFE;}
+.popover.right>.arrow{border-right-color:#3D5AFE;}
+.popover.top>.arrow{border-top-color:#3D5AFE;}
+.popover.bottom>.arrow{border-bottom-color:#3D5AFE;}
+.nav-tabs.nav-tabs-solid>.active>a,.nav-tabs.nav-tabs-solid>.active>a:focus,.nav-tabs.nav-tabs-solid>.active>a:hover{background-color:#3D5AFE;border-color:#3D5AFE;color:#fff}
+.nav-tabs.nav-tabs-highlight>li.active>a,.nav-tabs.nav-tabs-highlight>li.active>a:focus,.nav-tabs.nav-tabs-highlight>li.active>a:hover{border-top-color:#3D5AFE}
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover{background-color: #3D5AFE;border-color: #3D3247;}
+.panel-default>.panel-heading {color: #fff;background-color: #3D5AFE;border-color: #ddd;}
+.glyphs i{font-size:24px; color:#3D5AFE;}
+.glyphs>div:hover{background-color:#3D5AFE;color:#fff;}
+.checker span{color:#3D5AFE;border:2px solid #3D5AFE;}
+.choice span{border:2px solid #3D5AFE;}
+.select2-selection--multiple .select2-selection__choice{background-color:#3D5AFE;color:#fff;}
+.tokenfield .token:not([class*=bg-]){background-color:#3D5AFE;color:#fff}
+.noUi-connect{background-color:#3D5AFE}
+.noUi-handle:after{background-color:#3D5AFE;}
+.form-wizard-count{background:#3D5AFE;}
+.daterangepicker td.active,.daterangepicker td.active:focus,.daterangepicker td.active:hover{background-color:#3D5AFE;color:#fff;}
+.ranges ul li.active{background-color:#3D5AFE}
+.picker--focused .picker__day--highlighted,.picker__day--highlighted,.picker__day--highlighted:hover{background-color:#3D5AFE}
+.fc-event{border:1px solid #3D5AFE;background-color:#3D5AFE;}
+.dataTables_paginate .paginate_button.current,.dataTables_paginate .paginate_button.current:focus,.dataTables_paginate .paginate_button.current:hover{color:#fff;background-color:#3D5AFE}
+.dataTables_paginate .paginate_button:focus,.dataTables_paginate .paginate_button:hover{background-color:#3D5AFE; color:#fff;}
+.datepaginator .pagination>li>.dp-selected,.datepaginator .pagination>li>.dp-selected:focus,.datepaginator .pagination>li>.dp-selected:hover{background-color:#3D5AFE;color:#fff;}
+.pager li>a:focus, .pager li>a:hover {text-decoration: none;background-color: #3D5AFE;color: #fff;}
+ul.horizontal-menu li:hover{background:#3D5AFE;color:#fff;}
+.login-container .form-control-feedback i{color:#3D5AFE;}
+.text-primary{color:#3D5AFE}
+.bg-primary{background-color:#3D5AFE}
+.btn-primary{background-color:#3D5AFE;border-color:#3D5AFE}
+.btn-primary.disabled.focus,.btn-primary.disabled:focus,.btn-primary.disabled:hover,.btn-primary[disabled].focus,.btn-primary[disabled]:focus,.btn-primary[disabled]:hover,fieldset[disabled] .btn-primary.focus,fieldset[disabled] .btn-primary:focus,fieldset[disabled] .btn-primary:hover{background-color:#3D5AFE;border-color:#3D5AFE}
+.btn-primary .badge{color:#3D5AFE;}
+.dropdown-menu>.active>a,.dropdown-menu>.active>a:focus,.dropdown-menu>.active>a:hover{background-color:#3D5AFE}
+.nav-pills>li.active>a,.nav-pills>li.active>a:focus,.nav-pills>li.active>a:hover{background-color:#3D5AFE}
+.pagination>.active>a,.pagination>.active>a:focus,.pagination>.active>a:hover,.pagination>.active>span,.pagination>.active>span:focus,.pagination>.active>span:hover{background-color:#3D5AFE;border-color:#3D5AFE;}
+.pager li>a:focus,.pager li>a:hover{background-color:#3D5AFE}
+.progress-bar{background-color:#3D5AFE;}
+.list-group-item.active,.list-group-item.active:focus,.list-group-item.active:hover{background-color:#3D5AFE;border-color:#3D5AFE}
+.panel-primary{border-color:#3D5AFE}
+.panel-primary>.panel-heading{background-color:#3D5AFE;border-color:#3D5AFE}
+.panel-primary>.panel-heading+.panel-collapse>.panel-body{border-top-color:#3D5AFE}
+.panel-primary>.panel-heading .badge{color:#3D5AFE;}
+.panel-primary>.panel-footer+.panel-collapse>.panel-body{border-bottom-color:#3D5AFE}
