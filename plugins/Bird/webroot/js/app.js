@@ -1,4 +1,69 @@
+var uniformPluginInitialize = function(){
+    $('.check-all').click(function(){
+        if($(this).is(':checked')){
+            $('.checker input[type="checkbox"]:not(:checked)').click();
+        }else{
+            $('.checker input[type="checkbox"]:checked').click();
+        }
+    });
+    // Contextual colors
+    // Primary
+    $(".control-primary").uniform({
+        radioClass: 'choice',
+        wrapperClass: 'border-primary-600 text-primary-800'
+    });
+
+    // Danger
+    $(".control-danger").uniform({
+        radioClass: 'choice',
+        wrapperClass: 'border-danger-600 text-danger-800'
+    });
+
+    // Success
+    $(".control-success").uniform({
+        radioClass: 'choice',
+        wrapperClass: 'border-success-600 text-success-800'
+    });
+
+    // Warning
+    $(".control-warning").uniform({
+        radioClass: 'choice',
+        wrapperClass: 'border-warning-600 text-warning-800'
+    });
+
+    // Info
+    $(".control-info").uniform({
+        radioClass: 'choice',
+        wrapperClass: 'border-info-600 text-info-800'
+    });
+
+    // Custom color
+    $(".control-custom").uniform({
+        radioClass: 'choice',
+        wrapperClass: 'border-indigo-600 text-indigo-800'
+    });
+}
+
+var dataTableDrawCallback = function(){
+    uniformPluginInitialize();
+};
+/*Format Object*/
+var moneyFormat = function(){
+    this.do = function(str){
+        str = str.toString();
+        if(str.length>3)
+            str = str.replace(/\B(?=(?:\d{3})+(?!\d))/g, ',');
+
+        return str
+    }
+    this.redo = function(str){
+        return str.replace(/[^\d]/g,'')
+    }
+}
+
 $(function() {
+
+    uniformPluginInitialize();
 
     // Disable CSS transitions on page load
     $('body').addClass('no-transitions');

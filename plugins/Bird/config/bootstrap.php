@@ -13,3 +13,4 @@
 //\Spider\Lib\Hook::adminActions('Users/Users/edit', 'Bird.Actions/google', true);
 //\Spider\Lib\Hook::adminBox('Users/Users/edit', 'Bird.Box/tags');
 \Spider\Lib\Hook::configFile('Bird', 'form_templates');
+\Spider\Lib\SpiderNav::setDashboardUrl(['prefix' => 'admin', 'plugin' => 'Bird', 'controller' => 'Dashboards', 'action' => 'index']);

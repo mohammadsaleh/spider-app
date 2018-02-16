@@ -20,7 +20,7 @@
                     echo $this->Html->image($avatar, ['class' => 'img-circle img-sm']);
                     ?>
                 </div>
-                <a href="<?= \Cake\Routing\Router::url(\Spider\Lib\SpiderNav::getAdminScope() . '/view-notification/' . $notification['id']);?>" class="media-body">
+                <a href="<?= \Cake\Routing\Router::url('/view-notification/' . $notification['id']);?>" class="media-body">
                     <div class="media-heading clearfix">
                         <?= $notification['title']?>
                         <span class="media-annotation pull-right"><?= \Spider\Lib\Date\Persian::date('Y-m-d H:i', $notification['created']);?></span>
