@@ -12,6 +12,4 @@
 //\Spider\Lib\Hook::adminActions('Settings/Settings/add', 'Bird.Actions/google', true);
 //\Spider\Lib\Hook::adminActions('Users/Users/edit', 'Bird.Actions/google', true);
 //\Spider\Lib\Hook::adminBox('Users/Users/edit', 'Bird.Box/tags');
-\Spider\Lib\Hook::helper('*', ['DataTables' => ['className' => 'DataTables.DataTables']]);
-\Spider\Lib\Hook::component('*', 'DataTables.DataTables');
 \Spider\Lib\Hook::configFile('Bird', 'form_templates');

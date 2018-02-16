@@ -1,11 +1,8 @@
 <?php
 namespace DataTables\View\Helper;
 
-use Cake\Utility\Hash;
 use Cake\View\Helper;
-use Cake\View\View;
-use Cake\ORM\Query;
-use Cake\View\StringTemplateTrait;
+use DataTables\Lib\DataTable;
 
 /**
  * DataTables helper
@@ -15,100 +12,77 @@ use Cake\View\StringTemplateTrait;
 class DataTablesHelper extends Helper
 {
 
-    use StringTemplateTrait;
     public $helpers = ['Html'];
-    private $__selector = 'table';
-
-    protected $_defaultConfig = [];
-
-    /**
-     * Set options exactly like datatables.net
-     *
-     * @param array $options
-     * @return $this
-     */
-    public function options(array $options = [])
-    {
-        $this->_templater = $this->templater();
-        $this->config($options);
-
-        // -- load i18n
-        if(!$this->config('dom')){
-            $this->config('dom', '<<"row"<"col-sm-4"i><"col-sm-8"lp>>rt>');
-        }
-        $this->config('language', Hash::merge([
-            'paginate' => [
-                'next' => '<i class="fa fa-chevron-right"></i>',
-                'previous' => '<i class="fa fa-chevron-left"></i>'
-            ],
-            'processing' => __d('DataTables', 'Your request is processing ...'),
-            'lengthMenu' =>
-                '<select class="form-control">' .
-                '<option value="10">' . __d('DataTables', 'Display {0} records', 10) . '</option>' .
-                '<option value="25">' . __d('DataTables', 'Display {0} records', 25) . '</option>' .
-                '<option value="50">' . __d('DataTables', 'Display {0} records', 50) . '</option>' .
-                '<option value="100">' .__d('DataTables', 'Display {0} records', 100) . '</option>' .
-                '</select>',
-            'info' => __d('DataTables', 'Showing _START_ to _END_ of _TOTAL_ entries'),
-            'infoFiltered' => __d('DataTables', '(filtered from _MAX_ total entries)')
-        ], $this->config('language')));
-
-        return $this;
-    }
+    private $__dataTables = [];
+    private $__rendered = false;
 
     /**
-     * Set ajax options and url
+     * Create new DataTable
      *
-     * @param $url
-     * @param array $options
-     * @return $this
+     * @param $selector
+     * @return DataTable
      */
-    public function ajax($url, $options = [])
+    public function create($selector)
     {
-        $this->config(array_merge($this->config(), [
-            'ajax' => [
-                'dataSrc' => "data",
-                'url' => $url
-            ],
-            'processing' => true,
-            'serverSide' => true,
-            'deferRender' => true,
-        ], $options));
-        return $this;
-    }
-
-    /**
-     * Overwrite datatabe default options.
-     *
-     * @param bool $block
-     * @return string
-     */
-    public function applyOptions($block = true)
-    {
-        $output = sprintf('$.extend($.fn.dataTable.defaults, %s);', json_encode($this->config()));
-        if($block){
-            $this->Html->scriptBlock($output, ['block' => $block]);
-            return $this;
-        }else{
-            return $output;
-        }
+        $dataTable = new DataTable($selector);
+        $this->__dataTables[] = $dataTable;
+        return $dataTable;
     }
 
     /**
      * Draw datatable
-     * @param $selector
+     *
+     * @param $dataTables
      * @return string
      */
-    public function draw($selector = null, $block = true)
+    public function draw($dataTables = null, $block = true)
     {
-        if(!$selector){
-            $selector = $this->__selector;
+        if(!$dataTables){
+            $dataTables = $this->__dataTables;
         }
-        if($selector){
+        if(!is_array($dataTables)){
+            $dataTables = [$dataTables];
+        }
+        $output = '';
+        if(!$this->__rendered){
+            $this->__rendered = true;
+            $output = '$.extend($.fn.dataTable.defaults, {"drawCallback": dataTableDrawCallback});';
+        }
+        foreach($dataTables as $dataTable){
+            $columnSearch = $dataTable->getConfig('columnSearch');
+            $dataTable->setConfig('columnSearch', null);
+
+            $selector = $dataTable->selector();
+            $selectorVar = $dataTable->getSelectorVar();
+
+            $output .= '(typeof ' . $selectorVar . ' == "undefined") ? (' . $selectorVar . ' = {}) : "";';
+            $output .= sprintf('$.extend(' . $selectorVar . ', %s);', json_encode($dataTable->getConfig()));
+            $this->Html->scriptBlock($output, ['block' => $block]);
+            if(!$dataTable->active()){
+                continue;
+            }
+            $this->Html->script('forms/select2.min', ['block' => true]);
+            $this->Html->script('DataTables.cakephp.dataTables', ['block' => 'core_script']);
+            $this->Html->script('datatables/datatables.min.js', ['block' => 'core_script']);
+            $this->Html->script('datatables/extensions/buttons.min', ['block' => 'core_script']);
+            $this->Html->script('datatables/extensions/fixed_header.min', ['block' => 'core_script']);
             $output = 'jQuery(document).ready(function($){%s})';
-            $output = sprintf($output, sprintf('if($("%s").length > 0){table = $("%s").DataTable()}', $selector, $selector));
+            if($columnSearch){
+                $this->Html->script('DataTables.cakephp.dataTables', ['block' => true]);
+            }
+            $initializeDataTable = 'if($("%s").length > 0){' . $selectorVar . ' = $("%s").dataTable(' . $selectorVar . '); %s}';
+            $initializeDataTable .= "$('.table').on('init.dt', function(e){
+                // Enable Select2 select for the length option
+                $('.dataTables_length select').select2({
+                    minimumResultsForSearch: Infinity,
+                    width: 'auto'
+                });
+            });
+            ";
+            $output = sprintf($output, sprintf($initializeDataTable, $selector, $selector, $columnSearch ? 'initSearch(' . $selectorVar . ');' : ''));
             if($block){
                 $this->Html->scriptBlock($output, ['block' => $block]);
+                $output = '';
             }else{
                 return $output;
             }
@@ -116,18 +90,5 @@ class DataTablesHelper extends Helper
         return '';
     }
 
-    /**
-     * Set/Get selector dom
-     *
-     * @param null $selector
-     * @return null|string
-     */
-    public function selector($selector = null)
-    {
-        if(!$selector){
-            return $this->__selector;
-        }
-        $this->__selector = $selector;
-    }
 
 }
