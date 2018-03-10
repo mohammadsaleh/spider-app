@@ -44,7 +44,6 @@ class AppController extends SpiderController
 
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
-        $this->Auth->allow();
     }
 
     /**

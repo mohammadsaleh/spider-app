@@ -1,10 +1,4 @@
 /**
- * Table instance
- *
- */
-var table = null;
-
-/**
  * Timer instance
  *
  */
@@ -19,18 +13,20 @@ var delay = 600;
 /**
  * Add search behavior to all search fields in column footer
 */
-function initSearch ()
+function initSearch (table)
 {
     table.api().columns().every( function () {
         var index = this.index();
         var lastValue = ''; // closure variable to prevent redundant AJAX calls
-        $('input, select', this.footer()).on('keyup change', function () {
+        $('input, select', this.header()).on('click keyup change', function (e) {
+            e.preventDefault()
+            e.stopPropagation()
             if (this.value != lastValue) {
                 lastValue = this.value;
                 // -- set search
                 table.api().column(index).search(this.value);
                 window.clearTimeout(oFilterTimerId);
-                oFilterTimerId = window.setTimeout(drawTable, delay);
+                oFilterTimerId = window.setTimeout(function(){drawTable(table)}, delay);
             }
         });
     });
@@ -40,11 +36,11 @@ function initSearch ()
  * Function reset
  *
  */
-function reset()
+function reset(table)
 {
     table.api().columns().every(function() {
         this.search('');
-        $('input, select', this.footer()).val('');
+        $('input, select', this.header()).val('');
         drawTable();
     });
 }
@@ -53,6 +49,6 @@ function reset()
  * Draw table again after changes
  *
  */
-function drawTable() {
+function drawTable(table) {
     table.api().draw();
 }

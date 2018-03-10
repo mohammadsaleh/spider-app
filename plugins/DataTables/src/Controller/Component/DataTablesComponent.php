@@ -2,7 +2,9 @@
 namespace DataTables\Controller\Component;
 
 use Cake\Controller\Component;
+use Cake\Event\Event;
 use Cake\ORM\TableRegistry;
+use Cake\Utility\Hash;
 
 /**
  * DataTables component
@@ -10,194 +12,122 @@ use Cake\ORM\TableRegistry;
 class DataTablesComponent extends Component
 {
 
-    protected $_defaultConfig = [
-        'start' => 0,
-        'length' => 10,
-        'order' => [],
-        'conditionsOr' => [],  // table-wide search conditions
-        'conditionsAnd' => [], // column search conditions
-        'matching' => [],      // column search conditions for foreign tables
-    ];
-
+    public $request;
     protected $_viewVars = [
         'recordsTotal' => 0,
         'recordsFiltered' => 0,
         'draw' => 0
     ];
+    private $__query = null;
+    private $__usedDataTable = false;
 
-    protected $_isAjaxRequest = false;
-
-    protected $_tableName = null;
-
-    protected $_plugin = null;
-
-    /**
-     * Process query data of ajax request
-     *
-     */
-    private function _processRequest()
+    public function initialize(array $config)
     {
-        // -- check whether it is an ajax call from data tables server-side plugin or a normal request
-        $this->_isAjaxRequest = $this->request->is('ajax');
+        parent::initialize($config);
+        $this->request = $this->__getController()->request;
 
-        // -- add limit
-        if( isset($this->request->query['length']) && !empty($this->request->query['length']) )
-        {
-            $this->config('length', $this->request->query['length']);
-        }
+    }
+    public function dataTable($query)
+    {
+        $this->__usedDataTable = true;
+        $this->__query = $query;
+        $this->_viewVars['recordsTotal'] = $this->__query->count();
+        $this->__addConditions();
+        $this->_viewVars['recordsFiltered'] = $this->__query->count();
+        $this->__addSort();
+        $this->__addLimit();
+        $this->__setViewVars();
+        $results['datatable'] = $this->__query->toArray();
+        return $results;
 
-        // -- add offset
-        if( isset($this->request->query['start']) && !empty($this->request->query['start']) )
-        {
-            $this->config('start', (int)$this->request->query['start']);
-        }
-
-        // -- add order
-        if( isset($this->request->query['order']) && !empty($this->request->query['order']) )
-        {
-            $order = $this->config('order');
-            foreach($this->request->query['order'] as $item) {
-                if(!empty($this->request->query['columns'][$item['column']]['name'])){
-                    $order[$this->request->query['columns'][$item['column']]['name']] = $item['dir'];
+    }
+    public function beforeRender(Event $event)
+    {
+        if($this->__usedDataTable){
+            foreach($this->__getController()->viewVars as $var => $data){
+                if(is_array($data) && isset($data['datatable'])){
+                    $this->__getController()->viewVars[$var] = $data['datatable'];
+                    $this->__getController()->set([
+                        'data' => $data['datatable'],
+                        '_serialize' => array_merge($this->__getController()->viewVars['_serialize'], ['data'])
+                    ]);
                 }
             }
-            $this->config('order', $order);
         }
-
-        // -- add draw (an additional field of data tables plugin)
-        if( isset($this->request->query['draw']) && !empty($this->request->query['draw']) )
-        {
-            $this->_viewVars['draw'] = (int)$this->request->query['draw'];
-        }
-
-        // -- don't support any search if columns data missing
-        if( !isset($this->request->query['columns']) ||
-            empty($this->request->query['columns']) )
-        {
-            return;
-        }
-
-        // -- check table search field
-        $globalSearch = (isset($this->request->query['search']['value']) ?
-            $this->request->query['search']['value'] : false);
-
-        // -- add conditions for both table-wide and column search fields
-        foreach($this->request->query['columns'] as $column)
-        {
-            if(empty($column['name'])){
-                continue;
-            }
-            if( $globalSearch && $column['searchable'] == 'true' ) {
-                $this->_addCondition( $column['name'], $globalSearch, 'or' );
-            }
-            $localSearch = $column['search']['value'];
-            /* In some circumstances (no "table-search" row present), DataTables
-               fills in all column searches with the global search. Compromise:
-               Ignore local field if it matches global search. */
-            if( !empty($localSearch) && ($localSearch !== $globalSearch) ) {
-                $this->_addCondition( $column['name'], $column['search']['value'] );
-            }
-        }
-//        die;
-
     }
 
-    /**
-     * Find data
-     *
-     * @param $tableName
-     * @param $finder
-     * @param array $options
-     * @return array|\Cake\ORM\Query
-     */
-    public function find($tableName, $finder = 'all', array $options = [])
-    {
-
-        // -- get table object
-        $table = TableRegistry::get($tableName);
-        $this->_tableName = $table->alias();
-
-        // -- get query options
-        $this->_processRequest();
-        $data = $table->find($finder, $options);
-
-        // -- record count
-        $this->_viewVars['recordsTotal'] = $data->count();
-
-        // -- filter result
-        if($this->config('conditionsAnd')){
-            $data->where($this->config('conditionsAnd'));
-        }
-        foreach($this->config('matching') as $association => $where) {
-            if(!empty($where)){
-                $data->matching( $association, function ($q) use ($where) {
-                    return $q->where($where);
-                });
-            }else{
-                $data->leftJoinWith($association);
-            }
-        };
-        if($this->config('conditionsOr')){
-            $data->andWhere(['or' => $this->config('conditionsOr')]);
-        }
-
-        $this->_viewVars['recordsFiltered'] = $data->count();
-
-        // -- add limit
-        if($this->config('length')){
-            $data->limit( $this->config('length') );
-        }
-        if($this->config('start')){
-            $data->offset( $this->config('start') );
-        }
-
-        // -- sort
-        if($this->config('order')){
-            $data->order( $this->config('order') );
-        }
-
-        // -- set all view vars to view and serialize array
-        $this->_setViewVars();
-        return $data;
-
-    }
-
-    private function _getController()
+    private function __getController()
     {
         return $this->_registry->getController();
     }
-
-    private function _setViewVars()
+    private function __setViewVars()
     {
         $_serialize = [];
         foreach($this->_viewVars as $field => $value) {
             $_serialize[] = $field;
         }
-        $this->_getController()->set($this->_viewVars);
-        $this->_getController()->set('_serialize', $_serialize);
+        $this->__getController()->set($this->_viewVars);
+        $this->__getController()->set('_serialize', $_serialize);
     }
-
-    private function _addCondition($column, $value, $type = 'and')
+    private function __addConditions()
     {
-        list($association, $field) = explode('.', $column);
-        $condition = [function ($exp, $q) use($column, $value) {
-            return $exp->like($column, '%'.$value.'%', 'string');
-        }];
-
-        if( $type === 'or' ) {
-            if( $this->_tableName == $association) {
-                $this->config('conditionsOr', $condition); // merges
-            } else {
-                $this->config('matching', [$association => '']); // merges
-                $this->config('conditionsOr', $condition); // merges
-            }
+        // Don't support any search if columns data missing
+        if(empty($this->request->getQuery('columns'))){
             return;
         }
 
-        if( $this->_tableName == $association) {
-            $this->config('conditionsAnd', $condition); // merges
-        } else {
-            $this->config('matching', [$association => $condition]); // merges
+        // Check table search field
+        $globalSearch = $this->request->getQuery('search.value') ? $this->request->getQuery('search.value') : false;
+
+        // Add conditions for both table-wide and column search fields
+        $conditions = ['OR' => [], 'AND' => []];
+        foreach($this->request->getQuery('columns') as $column){
+            if(empty($column['name'])){
+                continue;
+            }
+//            list($association, $field) = explode('.', $column['name']);
+            if($globalSearch && $column['searchable'] == 'true' ) {
+                $conditions['OR'][] = function($exp, $q) use ($column, $globalSearch){
+                    return $exp->like($column['name'], '%'.$globalSearch.'%', 'string');
+                };
+            }
+            $localSearch = $column['search']['value'];
+            /*
+                In some circumstances (no "table-search" row present), DataTables
+                fills in all column searches with the global search. Compromise:
+                Ignore local field if it matches global search.
+            */
+            if(!empty($localSearch) && ($localSearch !== $globalSearch)) {
+//                $conditions['AND'][] = [$column['name'] => $column['search']['value']];
+                $conditions['AND'][] = function($exp, $q) use ($column, $localSearch){
+                    return $exp->like($column['name'], '%'.$localSearch.'%', 'string');
+                };
+            }
+        }
+        $conditions['OR'] ? $this->__query->where(function($exp) use($conditions){
+            return $exp->or_($conditions['OR']);
+        }) : false;
+        $conditions['AND'] ? $this->__query->where($conditions['AND']) : false;
+    }
+    private function __addLimit(){
+        // Add limit
+        $length = $this->request->getQuery('length') ?: 10;
+        $this->__query->limit($length);
+
+        // Add offset
+        $start = $this->request->getQuery('start') ?: 0;
+        $this->__query->offset($start);
+    }
+    private function __addSort()
+    {
+        // Add order
+        $orders = $this->request->getQuery('order');
+        if(!empty($orders)) {
+            foreach($orders as $item) {
+                if(($column = $this->request->getQuery("columns.{$item['column']}.name")) && !empty($column)){
+                    $this->__query->order([$column => $item['dir']]);
+                }
+            }
         }
     }
 }
