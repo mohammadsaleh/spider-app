@@ -14,8 +14,8 @@
  */
 namespace App\Controller;
 
-use Cake\Controller\Controller;
 use Cake\Event\Event;
+use Spider\Controller\SpiderController;
 
 /**
  * Application Controller
@@ -25,7 +25,7 @@ use Cake\Event\Event;
  *
  * @link https://book.cakephp.org/3.0/en/controllers.html#the-app-controller
  */
-class AppController extends Controller
+class AppController extends SpiderController
 {
 
     /**
@@ -41,7 +41,7 @@ class AppController extends Controller
     {
         parent::initialize();
 
-        $this->loadComponent('RequestHandler');
+        $this->loadComponent('RequestHandler', ['enableBeforeRedirect' => false]);
         $this->loadComponent('Flash');
 
         /*
@@ -50,5 +50,21 @@ class AppController extends Controller
          */
         //$this->loadComponent('Security');
         //$this->loadComponent('Csrf');
+    }
+
+    /**
+     * Before render callback.
+     *
+     * @param Event $event The beforeRender event.
+     * @return void
+     */
+    public function beforeRender(Event $event)
+    {
+
+        if (!array_key_exists('_serialize', $this->viewVars) &&
+            in_array($this->getResponse()->getType(), ['application/json', 'application/xml'])
+        ) {
+            $this->set('_serialize', true);
+        }
     }
 }
