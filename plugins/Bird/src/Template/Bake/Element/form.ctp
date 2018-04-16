@@ -61,7 +61,7 @@ foreach ($fields as $field) {
     <div class="form-group">
         <label class="control-label col-lg-3"><?= __('<%= $field %>')?></label>
         <div class="col-lg-9">
-        <?= $this->Form->input('<%= $field %>', ['options' => $<%= $keyFields[$field] %>, 'empty' => true, 'class' => 'form-control', 'label' => false]);?>
+        <?= $this->Form->control('<%= $field %>', ['options' => $<%= $keyFields[$field] %>, 'empty' => true, 'class' => 'form-control', 'label' => false]);?>
         </div>
     </div>
 
@@ -71,7 +71,7 @@ foreach ($fields as $field) {
     <div class="form-group">
         <label class="control-label col-lg-3"><?= __('<%= $field %>')?></label>
         <div class="col-lg-9">
-        <?= $this->Form->input('<%= $field %>', ['options' => $<%= $keyFields[$field] %>, 'class' => 'form-control', 'label' => false]);?>
+        <?= $this->Form->control('<%= $field %>', ['options' => $<%= $keyFields[$field] %>, 'class' => 'form-control', 'label' => false]);?>
         </div>
     </div>
 <%
@@ -85,7 +85,7 @@ foreach ($fields as $field) {
     <div class="form-group">
         <label class="control-label col-lg-3"><?= __('<%= $field %>')?></label>
         <div class="col-lg-9">
-        <?= $this->Form->input('<%= $field %>', ['empty' => true, 'class' => 'form-control', 'label' => false]);?>
+        <?= $this->Form->control('<%= $field %>', ['empty' => true, 'class' => 'form-control', 'label' => false]);?>
         </div>
     </div>
 <%
@@ -94,7 +94,7 @@ foreach ($fields as $field) {
     <div class="form-group">
         <label class="control-label col-lg-3"><?= __('<%= $field %>')?></label>
         <div class="col-lg-9">
-        <?= $this->Form->input('<%= $field %>', ['class' => 'form-control', 'label' => false]);?>
+        <?= $this->Form->control('<%= $field %>', ['class' => 'form-control', 'label' => false]);?>
         </div>
     </div>
 <%
@@ -107,7 +107,7 @@ if (!empty($associations['BelongsToMany'])) {
     <div class="form-group">
         <label class="control-label col-lg-3"><?= __('<%= $field %>')?></label>
         <div class="col-lg-9">
-        <?= $this->Form->input('<%= $assocData['property'] %>._ids', ['options' => $<%= $assocData['variable'] %>, 'class' => 'form-control', 'label' => false]);?>
+        <?= $this->Form->control('<%= $assocData['property'] %>._ids', ['options' => $<%= $assocData['variable'] %>, 'class' => 'form-control', 'label' => false]);?>
         </div>
     </div>
 <%

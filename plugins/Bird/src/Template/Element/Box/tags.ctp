@@ -4,6 +4,6 @@
     </div>
     <div class="panel-body">
         #Tag1, #tag2
-        <?= $this->Form->input('username', ['class' => 'form-control']);?>
+        <?= $this->Form->control('username', ['class' => 'form-control']);?>
     </div>
 </div>
