@@ -1,0 +1,20 @@
+a, a:hover{color:#111;}
+.navbar {background: #111!important;border-bottom: 1px solid #000 !important;}
+a.sidebar-control:hover {background: rgba(255,255,255,0.05);}
+ul.navbar-right > li > a:hover {background: rgba(255,255,255,0.05);}
+ul.dropdown-menu-themes {background: #222;border: 1px solid #111;}
+.sidebar {background: #222;color:#fff;border-right: 1px solid #111;}
+.sidebar:not(.sidebar-default) .media .media-annotation, .sidebar:not(.sidebar-default) .media .text-muted {color: #fff;}
+.navigation .navigation-header, .navigation .navigation-header a {color: #fff;}
+.navigation li a {color: #fff;}
+.navigation li a:focus, .navigation li a:hover {background-color: rgba(0,0,0,.2);color: #fff;}
+.navigation>li.active>a, .navigation>li.active>a:focus, .navigation>li.active>a:hover, .navigation>li.active>a i, .navigation>li.active>a:focus i, .navigation>li.active>a:hover i {color: #fff;}
+.navigation>li ul {background-color: rgba(0,0,0,.05);}
+.breadcrumb a {background: #111;color: #fff;}
+.sidebar-xs .sidebar-main .navigation>li>ul {background-color: #222;border-left: 1px solid #111;}
+.notifications .media-list {background: #222;}
+.notifications .media-list .media:hover {background-color: rgba(0,0,0,.2);}
+.notifications .dropdown-content-footer {background-color: #111;}
+.notifications .media-list .media-body span {color: #ccc;}
+.notifications .dropdown-content-footer a {color: #fff;}
+.notifications .dropdown-content-footer i {color: #fff;}

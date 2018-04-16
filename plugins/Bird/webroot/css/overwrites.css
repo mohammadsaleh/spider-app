@@ -1,0 +1,30 @@
+body,html{height:100%;font-family:'IRANSans';background:#e7eaeb; font-size: 12px}
+h4.panel-title {
+    font-family: IRANSans;
+}
+.text-semibold {
+    font-family: IRANSans;
+    font-weight: bold;
+}
+h1, h2, h3, h4, h5 {
+    font-family: IRANSans;
+}
+
+.input-group-addon.same-width{
+    min-width: 60px;
+}
+.rtl{
+    direction: rtl;
+}
+.ltr{
+    direction: ltr;
+}
+.inline{
+    display: inline-block
+}
+.compose-new-message .tokenfield .token>.close{
+    margin-top: -5.5px !important;
+}
+.btn{
+    margin-bottom: 5px;
+

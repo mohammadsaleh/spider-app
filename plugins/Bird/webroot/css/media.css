@@ -1,0 +1,28 @@
+@media(max-width:414px){
+	.content {padding: 0 10px 60px}
+	.sidebar-main+.page-header {margin: 10px 0 20px;}
+	.page-header-content {position: relative;background-color: inherit;padding: 0 10px;}
+	.page-title, .page-title h4 {font-size: 18px;padding: 1px 0 0 0;}
+	.h1.panel-title, h1.panel-title {font-size: 10px;}
+	.h2.panel-title, h2.panel-title {font-size: 12px;}
+	.h3.panel-title, h3.panel-title {font-size: 14px;}
+	.h4.panel-title, h4.panel-title {font-size: 16px;}
+	.h5.panel-title, h5.panel-title {font-size: 18px;}
+	.h6.panel-title, h6.panel-title {font-size: 20px;}
+	.panel-heading {padding: 15px 10px;}
+	.panel-flat>.panel-heading {padding-top: 10px;}
+	.panel-flat>.panel-heading+.panel-body {padding: 10px;}
+	.heading-elements .breadcrumb, .heading-elements .daterange-custom, .heading-elements .heading-btn, .heading-elements .heading-btn-group>.btn, .heading-elements .heading-form .form-group, .heading-elements .heading-text, .heading-elements .heading-thumbnails, .heading-elements .icons-list, .heading-elements .nav-pills, .heading-elements .nav-tabs, .heading-elements .noui-slider, .heading-elements .pager, .heading-elements .pagination, .heading-elements .progress, .heading-elements .ui-slider, .heading-elements>.btn-group{margin-top:15px;}
+}
+
+@media(min-width:415px) and (max-width:768px){
+	.sidebar-mobile-toggle, .navbar-header{float:left;}
+	.dropdown.notifications .dropdown-menu{left:-200px;}
+	.notifications .dropdown-content-footer{width:280px;}
+	.dropdown-menu-themes{left:-50px;}
+	.navbar a i{margin-top:14px;}
+	.sidebar-mobile-toggle i{font-size:24px;}
+	.navbar-right a i{margin-top:0px;}
+	.content-wrapper{display:block;}
+	.page-title{padding: 10px 10px 10px 0;}
+}
