@@ -2,7 +2,7 @@
 $this->extend('/Common/content_header');
 $this->Html->script('/assets/js/pages/dashboard', ['block' => true]);
 $this->assign('content_title', !empty($title) ? $title : __('Templates'));
-$this->Html->addCrumb(!empty($title) ? $title : __('Templates'));
+$this->Breadcrumbs->add(!empty($title) ? $title : __('Templates'));
 ?>
 <?php $this->append('actions');?>
 <?= $this->Html->link('<i class="fa fa-plus positio-left"></i> ' . __('New Plugin'), ['action' => 'add'], ['class' => 'btn btn-success btn-sm', 'escape' => false]);?>

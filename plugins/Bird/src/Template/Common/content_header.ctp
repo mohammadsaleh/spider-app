@@ -4,16 +4,10 @@
             <h4><i class="fa fa-home position-left"></i> <span><?= $this->fetch('content_title', $title);?></span></h4>
         </div>
         <?php
-        echo $this->Html->getCrumbList([
-                'class' => 'breadcrumb',
-                'lastClass' => 'active',
-                'firstClass' => false,
-            ], [
-                'text' => '<i class="fa fa-home"></i>' . __('Home'),
-                'url' => \Spider\Lib\SpiderNav::getDashboardUrl(),
-                'escape' => false
-            ]
+        $this->Breadcrumbs->insertAt(0, '<i class="fa fa-home"></i>' . __('Home'),
+            \Spider\Lib\SpiderNav::getDashboardUrl(), ['escape' => false]
         );
+        echo $this->Breadcrumbs->render(['class' => 'breadcrumb']);
         ?>
     </div>
 </div>

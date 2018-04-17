@@ -6,7 +6,7 @@ if($this->DataTables){
 ?>
 
 <?php $this->append('body')?>
-<?php $this->eventManager()->dispatch(new \Cake\Event\Event('Template.Element.before.admin.structure', $this)); ?>
+<?php $this->getEventManager()->dispatch(new \Cake\Event\Event('Template.Element.before.admin.structure', $this)); ?>
 <?= $this->element('index_structure')?>
 <?php $this->end()?>
 

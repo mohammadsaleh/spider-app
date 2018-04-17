@@ -29,8 +29,8 @@ if (isset($modelObject) && $modelObject->behaviors()->has('Tree')) {
 $this->extend('/Common/content_form');
 
 $this->assign('content_title', !empty($title) ? $title : __('<%= Inflector::humanize($action) %> <%= $singularHumanName %>'));
-$this->Html->addCrumb(__('List <%= $pluralHumanName %>'), ['action' => 'index']);
-$this->Html->addCrumb(!empty($title) ? $title : __('<%= Inflector::humanize($action) %> <%= $singularHumanName %>'));
+$this->Breadcrumbs->add(__('List <%= $pluralHumanName %>'), ['action' => 'index']);
+$this->Breadcrumbs->add(!empty($title) ? $title : __('<%= Inflector::humanize($action) %> <%= $singularHumanName %>'));
 $this->set('form', $this->Form->create($<%= $singularVar %>, ['class' => 'form-horizontal']));
 ?>
 
