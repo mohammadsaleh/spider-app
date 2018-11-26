@@ -13,6 +13,7 @@
  */
 namespace App\View;
 
+use Cake\View\View;
 use Spider\View\SpiderAppView;
 
 /**
@@ -36,6 +37,6 @@ class AppView extends SpiderAppView
      */
     public function initialize()
     {
-		parent::initialize();
+        parent::initialize();
     }
 }

@@ -1,5 +1,5 @@
 {
-	"name": "mohammadsaleh/spider-app",
+    "name": "mohammadsaleh/spider-app",
     "description": "Spider skeleton app",
     "homepage": "http://github.com/mohammadsaleh/spider-app",
     "license": "MIT",
@@ -9,26 +9,26 @@
             "name": "Mohammad Saleh Sayari",
             "email": "mohammadsaleh.sayari@gmail.com"
         }
-    ],	
+    ],
     "require": {
         "php": ">=5.6",
         "cakephp/cakephp": "3.6.*",
-        "cakephp/migrations": "^1.8.0",
+        "cakephp/migrations": "^2.0.0",
         "cakephp/plugin-installer": "^1.0",
-        "josegonzalez/dotenv": "3.*",
         "mobiledetect/mobiledetectlib": "2.*"
     },
     "require-dev": {
-		"mohammadsaleh/spider": "^2.0",
+	    "mohammadsaleh/spider": "^2.0",
         "cakephp/bake": "^1.1",
         "cakephp/cakephp-codesniffer": "^3.0",
         "cakephp/debug_kit": "^3.15.0",
+        "josegonzalez/dotenv": "3.*",
+        "phpunit/phpunit": "^5|^6",
         "psy/psysh": "@stable"
     },
     "suggest": {
         "markstory/asset_compress": "An asset compression plugin which provides file concatenation and a flexible filter system for preprocessing and minification.",
-        "dereuromark/cakephp-ide-helper": "After baking your code, this keeps your annotations in sync with the code evolving from there on for maximum IDE and PHPStan compatibility.",
-        "phpunit/phpunit": "Allows automated tests to be run without system-wide install."
+        "dereuromark/cakephp-ide-helper": "After baking your code, this keeps your annotations in sync with the code evolving from there on for maximum IDE and PHPStan compatibility."
     },
     "autoload": {
         "psr-4": {
@@ -49,12 +49,11 @@
             "@test",
             "@cs-check"
         ],
-        "cs-check": "phpcs --colors -p --standard=vendor/cakephp/cakephp-codesniffer/CakePHP ./src ./tests",
-        "cs-fix": "phpcbf --colors --standard=vendor/cakephp/cakephp-codesniffer/CakePHP ./src ./tests",
+        "cs-check": "phpcs --colors -p --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ tests/",
+        "cs-fix": "phpcbf --colors --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ tests/",
         "test": "phpunit --colors=always"
     },
     "prefer-stable": true,
-    "minimum-stability": "dev",
     "config": {
         "sort-packages": true
     }
