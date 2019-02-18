@@ -201,6 +201,6 @@ Type::build('timestamp')
 //Inflector::rules('uninflected', ['dontinflectme']);
 //Inflector::rules('transliteration', ['/å/' => 'aa']);
 
-/*
+
 Configure::write('App.paths.plugins', array_merge(Configure::read('App.paths.plugins'), [ROOT  . DS . 'vendor' . DS . 'mohammadsaleh' . DS . 'spider' . DS]));
 Plugin::load('Spider', ['bootstrap' => true, 'routes' => true]);
