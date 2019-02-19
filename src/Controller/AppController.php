@@ -53,20 +53,4 @@ class AppController extends SpiderController
          */
         //$this->loadComponent('Security');
     }
-
-    /**
-     * Before render callback.
-     *
-     * @param Event $event The beforeRender event.
-     * @return void
-     */
-    public function beforeRender(Event $event)
-    {
-
-        if (!array_key_exists('_serialize', $this->viewVars) &&
-            in_array($this->getResponse()->getType(), ['application/json', 'application/xml'])
-        ) {
-            $this->set('_serialize', true);
-        }
-    }
 }

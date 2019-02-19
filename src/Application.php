@@ -14,11 +14,13 @@
  */
 namespace App;
 
+use Cake\Core\ClassLoader;
 use Cake\Core\Configure;
 use Cake\Core\Exception\MissingPluginException;
+use Cake\Core\Plugin;
+use Cake\Core\PluginCollection;
 use Cake\Error\Middleware\ErrorHandlerMiddleware;
 use Cake\Http\BaseApplication;
-use Cake\Http\Middleware\CsrfProtectionMiddleware;
 use Cake\Routing\Middleware\AssetMiddleware;
 use Cake\Routing\Middleware\RoutingMiddleware;
 
@@ -55,25 +57,37 @@ class Application extends BaseApplication
         if (Configure::read('debug')) {
             $this->addPlugin(\DebugKit\Plugin::class);
         }
+
+        $this->__loadSpiderPlugin();
     }
 
     /**
-     * Define the routes for an application.
-     *
-     * Use the provided RouteBuilder to define an application's routing, register scoped middleware.
-     *
-     * @param \Cake\Routing\RouteBuilder $routes A route builder to add routes into.
-     * @return void
+     * Loading Spider Plugin
      */
-    public function routes($routes)
+    private function __loadSpiderPlugin()
     {
-        // Register scoped middleware for use in routes.php
-        $routes->registerMiddleware('csrf', new CsrfProtectionMiddleware([
-            'httpOnly' => true
-        ]));
-
-        parent::routes($routes);
+        Configure::write('App.paths.plugins', array_merge(
+            Configure::read('App.paths.plugins'),
+            [ROOT  . DS . 'vendor' . DS . 'mohammadsaleh' . DS . 'spider' . DS]
+        ));
+        $plugin = [
+            'name' => 'Spider',
+            'path' => (new PluginCollection())->findPath('Spider'),
+            'classBase' => 'src',
+        ];
+        $this->addPlugin($plugin['name'], ['bootstrap' => true, 'routes' => true]);
+        $loader = (new ClassLoader());
+        $loader->register();
+        $loader->addNamespace(
+            $plugin['name'],
+            $plugin['path'] . $plugin['classBase'] . DIRECTORY_SEPARATOR
+        );
+        $loader->addNamespace(
+            $plugin['name'] . '\Test',
+            $plugin['path'] . 'tests' . DIRECTORY_SEPARATOR
+        );
     }
+
 
     /**
      * Setup the middleware queue your application will use.
