@@ -32,7 +32,16 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/"
+            "App\\": "src/",
+            "Spider\\": "vendor/mohammadsaleh/spider/Spider/src/",
+            "Settings\\": "vendor/mohammadsaleh/spider/Settings/src/",
+            "Captcha\\": "vendor/mohammadsaleh/spider/Captcha/src/",
+            "AclManager\\": "vendor/mohammadsaleh/spider/AclManager/src/",
+            "PluginManager\\": "vendor/mohammadsaleh/spider/PluginManager/src/",
+            "Users\\": "vendor/mohammadsaleh/spider/Users/src/",
+            "Search\\": "vendor/mohammadsaleh/spider/Search/src/",
+            "DataTables\\": "plugins/DataTables/src/",
+            "Bird\\": "plugins/Bird/src/"
         }
     },
     "autoload-dev": {

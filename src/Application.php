@@ -14,6 +14,7 @@
  */
 namespace App;
 
+use Cake\Cache\Cache;
 use Cake\Core\ClassLoader;
 use Cake\Core\Configure;
 use Cake\Core\Exception\MissingPluginException;
@@ -23,6 +24,7 @@ use Cake\Error\Middleware\ErrorHandlerMiddleware;
 use Cake\Http\BaseApplication;
 use Cake\Routing\Middleware\AssetMiddleware;
 use Cake\Routing\Middleware\RoutingMiddleware;
+use Spider\Lib\Hook;
 
 /**
  * Application setup class.
@@ -58,36 +60,10 @@ class Application extends BaseApplication
             $this->addPlugin(\DebugKit\Plugin::class);
         }
 
-        $this->__loadSpiderPlugin();
+        $this->addPlugin('Spider', ['bootstrap' => true, 'routes' => true]);
+        $this->addPlugin('DataTables', ['bootstrap' => true, 'routes' => true]);
+        $this->addPlugin('Bird', ['bootstrap' => true, 'routes' => true]);
     }
-
-    /**
-     * Loading Spider Plugin
-     */
-    private function __loadSpiderPlugin()
-    {
-        Configure::write('App.paths.plugins', array_merge(
-            Configure::read('App.paths.plugins'),
-            [ROOT  . DS . 'vendor' . DS . 'mohammadsaleh' . DS . 'spider' . DS]
-        ));
-        $plugin = [
-            'name' => 'Spider',
-            'path' => (new PluginCollection())->findPath('Spider'),
-            'classBase' => 'src',
-        ];
-        $this->addPlugin($plugin['name'], ['bootstrap' => true, 'routes' => true]);
-        $loader = (new ClassLoader());
-        $loader->register();
-        $loader->addNamespace(
-            $plugin['name'],
-            $plugin['path'] . $plugin['classBase'] . DIRECTORY_SEPARATOR
-        );
-        $loader->addNamespace(
-            $plugin['name'] . '\Test',
-            $plugin['path'] . 'tests' . DIRECTORY_SEPARATOR
-        );
-    }
-
 
     /**
      * Setup the middleware queue your application will use.
