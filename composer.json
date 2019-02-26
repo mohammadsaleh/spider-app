@@ -4,7 +4,7 @@
     "homepage": "http://github.com/mohammadsaleh/spider-app",
     "license": "MIT",
     "type": "project",
-    "authors" : [
+    "authors": [
         {
             "name": "Mohammad Saleh Sayari",
             "email": "mohammadsaleh.sayari@gmail.com"
@@ -33,21 +33,21 @@
     "autoload": {
         "psr-4": {
             "App\\": "src/",
-            "Spider\\": "vendor/mohammadsaleh/spider/Spider/src/",
-            "Settings\\": "vendor/mohammadsaleh/spider/Settings/src/",
-            "Captcha\\": "vendor/mohammadsaleh/spider/Captcha/src/",
-            "AclManager\\": "vendor/mohammadsaleh/spider/AclManager/src/",
-            "PluginManager\\": "vendor/mohammadsaleh/spider/PluginManager/src/",
-            "Users\\": "vendor/mohammadsaleh/spider/Users/src/",
-            "Search\\": "vendor/mohammadsaleh/spider/Search/src/",
-            "DataTables\\": "plugins/DataTables/src/",
-            "Bird\\": "plugins/Bird/src/"
+            "Spider\\": "./vendor/mohammadsaleh/spider/Spider/src/",
+            "Settings\\": "./vendor/mohammadsaleh/spider/Settings/src/",
+            "Captcha\\": "./vendor/mohammadsaleh/spider/Captcha/src/",
+            "AclManager\\": "./vendor/mohammadsaleh/spider/AclManager/src/",
+            "PluginManager\\": "./vendor/mohammadsaleh/spider/PluginManager/src/",
+            "Users\\": "./vendor/mohammadsaleh/spider/Users/src/",
+            "Search\\": "./vendor/mohammadsaleh/spider/Search/src/",
+            "DataTables\\": "./plugins/DataTables/src/",
+            "Bird\\": "./plugins/Bird/src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
             "App\\Test\\": "tests/",
-            "Cake\\Test\\": "vendor/cakephp/cakephp/tests/"
+            "Cake\\Test\\": "vendor/cakephp/cakephp/tests/",
         }
     },
     "scripts": {
@@ -67,6 +67,9 @@
         "sort-packages": true
     },
     "extra": {
-        "plugin-paths": ["plugins", "vendor/mohammadsaleh/spider"]
+        "plugin-paths": [
+            "plugins",
+            "vendor/mohammadsaleh/spider"
+        ]
     }
 }
