@@ -1,5 +1,5 @@
 <meta charset="utf-8">
-<base href="<?= \Cake\Routing\Router::url('/', true)?>" >
+<base href="<?= env("SITE_BASE_URL", \Cake\Routing\Router::url('/', true))?>" >
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title><?= $title;?></title>
