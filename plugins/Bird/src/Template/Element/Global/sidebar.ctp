@@ -26,7 +26,7 @@
 					<div class="media-right media-middle">
 						<ul class="icons-list">
 							<li>
-								<a href="<?= \Cake\Routing\Router::url('/logout')?>"><i class="fa fa-sign-out"></i></a>
+								<a href="<?= \Cake\Routing\Router::url(\Spider\Lib\SpiderNav::getAdminScope() . '/logout')?>"><i class="fa fa-sign-out"></i></a>
 							</li>
 						</ul>
 					</div>
